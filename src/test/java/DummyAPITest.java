@@ -1,8 +1,7 @@
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import org.testng.annotations.Test;
+
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
 
 public class DummyAPITest {
 
@@ -10,24 +9,27 @@ public class DummyAPITest {
     @Test
     public void getDummyApi() {
 
-        RestAssured.baseURI="http://dummy.restapiexample.com/";
+        RestAssured.baseURI = "http://dummy.restapiexample.com/";
 
         given().
-        when().
-        get("/api/v1/employees").
-        then().
+                when().
+                get("/api/v1/employees").
+                then().
                 assertThat().statusCode(200).
                 //and().body("[0].id", equalTo("60363")).
-                and().header("Server", "Apache");
+                        and().header("Server", "Apache");
     }
 
     @Test
-    public void postDummyApi(){
-        RestAssured.baseURI="http://dummy.restapiexample.com/";
+    public void postDummyApi() {
+        RestAssured.baseURI = "http://dummy.restapiexample.com/";
+        String postBody = "{" +
+                "\"name\":\"Krish\"," +
+                "\"salary\":\"95000\"," +
+                "\"age\":\"28\"" +
+                "}";
 
-        body(" {\"name\":\"Ravi Chandra\",\n" +
-                "\"salary\":\"95000\",\n" +
-                "\"age\":\"28\"}").
+        body(postBody).
                 when().
                 post("api/v1/create").
                 then().
@@ -38,3 +40,5 @@ public class DummyAPITest {
 
 
 }
+
+
